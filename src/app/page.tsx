@@ -3,6 +3,7 @@
 import { ChevronRight, Upload } from "lucide-react";
 import { useState } from "react";
 import { FileRow, FolderRow } from "~/components/file-row";
+import ModeToggle from "~/components/mode-toggle";
 import { Button } from "~/components/ui/button";
 import {
   Table,
@@ -74,6 +75,7 @@ export default function GoogleDriveClone() {
             <Upload className="mr-2" size={20} />
             Upload
           </Button>
+          <ModeToggle />
         </div>
         <Table>
           <TableCaption>All your folders and files at your reach</TableCaption>

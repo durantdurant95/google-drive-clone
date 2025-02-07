@@ -39,7 +39,7 @@ export default function GoogleDriveClone() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 p-8 text-gray-100">
+    <div className="text-mint-500 bg-foreground min-h-screen p-8">
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center">
@@ -83,7 +83,7 @@ export default function GoogleDriveClone() {
             {getCurrentFiles().map((file) => (
               <li
                 key={file.id}
-                className="hover:bg-gray-750 border-b border-gray-700 px-6 py-4"
+                className="hover:bg-gray-750 border-gray-700 px-6 py-4"
               >
                 <div className="grid grid-cols-12 items-center gap-4">
                   <div className="col-span-6 flex items-center">

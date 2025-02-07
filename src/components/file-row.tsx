@@ -1,9 +1,9 @@
 import { FileIcon, FolderIcon } from "lucide-react";
 import Link from "next/link";
-import type { File, Folder } from "~/lib/mock-data";
+import type { files, folders } from "~/server/db/schema";
 import { TableCell, TableRow } from "./ui/table";
 
-export function FileRow(props: { file: File }) {
+export function FileRow(props: { file: typeof files.$inferSelect }) {
   const { file } = props;
   return (
     <TableRow key={file.id}>
@@ -20,7 +20,7 @@ export function FileRow(props: { file: File }) {
 }
 
 export function FolderRow(props: {
-  folder: Folder;
+  folder: typeof folders.$inferSelect;
   handleFolderClick: () => void;
 }) {
   const { folder, handleFolderClick } = props;

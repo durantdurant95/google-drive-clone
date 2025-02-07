@@ -1,9 +1,16 @@
 "use client";
 
-import { ChevronRight, Upload } from "lucide-react";
-import { useState } from "react";
+import { Upload } from "lucide-react";
+import { Fragment, useMemo, useState } from "react";
 import { FileRow, FolderRow } from "~/components/file-row";
 import ModeToggle from "~/components/mode-toggle";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "~/components/ui/breadcrumb";
 import { Button } from "~/components/ui/button";
 import {
   Table,
@@ -30,22 +37,21 @@ export default function GoogleDriveClone() {
     setCurrentFolder(folderId);
   };
 
-  const getBreadcrumbs = () => {
+  const breadcrumbs = useMemo(() => {
     const breadcrumbs = [];
-    let currentId = currentFolder;
+    let current = currentFolder;
 
-    while (currentId !== null) {
-      const folder = mockFiles.find((file) => file.id === currentId);
+    while (current !== "root") {
+      const folder = mockFolders.find((folder) => folder.id === current);
       if (folder) {
         breadcrumbs.unshift(folder);
-        currentId = folder.parent ?? "root";
+        current = folder.parent ?? "root";
       } else {
         break;
       }
     }
-
     return breadcrumbs;
-  };
+  }, [currentFolder]);
 
   const handleUpload = () => {
     alert("Upload functionality would be implemented here");
@@ -56,20 +62,32 @@ export default function GoogleDriveClone() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center">
-            <Button onClick={() => setCurrentFolder("root")} variant="ghost">
-              My Drive
-            </Button>
-            {getBreadcrumbs().map((folder) => (
-              <div key={folder.id} className="flex items-center">
-                <ChevronRight className="mx-2" size={16} />
-                <Button
-                  onClick={() => handleFolderClick(folder.id)}
-                  variant="ghost"
-                >
-                  {folder.name}
-                </Button>
-              </div>
-            ))}
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink
+                    href="#"
+                    onClick={() => setCurrentFolder("root")}
+                  >
+                    My Drive
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                {breadcrumbs.length > 0 && <BreadcrumbSeparator />}
+                {breadcrumbs.map((folder, index) => (
+                  <Fragment key={folder.id}>
+                    <BreadcrumbItem>
+                      <BreadcrumbLink
+                        href="#"
+                        onClick={() => handleFolderClick(folder.id)}
+                      >
+                        {folder.name}
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    {index < breadcrumbs.length - 1 && <BreadcrumbSeparator />}
+                  </Fragment>
+                ))}
+              </BreadcrumbList>
+            </Breadcrumb>
           </div>
           <Button onClick={handleUpload}>
             <Upload className="mr-2" size={20} />

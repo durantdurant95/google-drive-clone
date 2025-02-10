@@ -1,7 +1,7 @@
 "use client";
 "use client";
 
-import { Upload } from "lucide-react";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Fragment } from "react";
 import { FileRow, FolderRow } from "~/components/file-row";
 import ModeToggle from "~/components/mode-toggle";
@@ -12,7 +12,6 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb";
-import { Button } from "~/components/ui/button";
 import {
   Table,
   TableBody,
@@ -60,11 +59,15 @@ export default function DriveContent(props: {
               </BreadcrumbList>
             </Breadcrumb>
           </div>
-          <Button onClick={handleUpload}>
-            <Upload className="mr-2" size={20} />
-            Upload
-          </Button>
-          <ModeToggle />
+          <div className="flex gap-2">
+            <ModeToggle />
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
         </div>
         <Table>
           <TableCaption>All your folders and files at your reach</TableCaption>

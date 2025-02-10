@@ -19,16 +19,15 @@ export function FileRow(props: { file: typeof files.$inferSelect }) {
   );
 }
 
-export function FolderRow(props: {
-  folder: typeof folders.$inferSelect;
-  handleFolderClick: () => void;
-}) {
-  const { folder, handleFolderClick } = props;
+export function FolderRow(props: { folder: typeof folders.$inferSelect }) {
+  const { folder } = props;
   return (
     <TableRow key={folder.id}>
-      <TableCell onClick={() => handleFolderClick()} className="flex gap-1">
-        <FolderIcon size={20} />
-        {folder.name}
+      <TableCell>
+        <Link href={`/f/${folder.id}`} className="flex gap-1">
+          <FolderIcon size={20} />
+          {folder.name}
+        </Link>
       </TableCell>
       <TableCell>Folder</TableCell>
       <TableCell className="text-center">--</TableCell>

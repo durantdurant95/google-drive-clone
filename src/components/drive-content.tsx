@@ -2,7 +2,7 @@
 "use client";
 
 import { Upload } from "lucide-react";
-import { Fragment, useMemo, useState } from "react";
+import { Fragment } from "react";
 import { FileRow, FolderRow } from "~/components/file-row";
 import ModeToggle from "~/components/mode-toggle";
 import {
@@ -26,29 +26,9 @@ import type { files, folders } from "~/server/db/schema";
 export default function DriveContent(props: {
   files: (typeof files.$inferSelect)[];
   folders: (typeof folders.$inferSelect)[];
+  parents: (typeof folders.$inferSelect)[];
 }) {
-  const { files, folders } = props;
-  const [currentFolder, setCurrentFolder] = useState<number>(1);
-
-  const handleFolderClick = (folderId: number) => {
-    setCurrentFolder(folderId);
-  };
-
-  const breadcrumbs = useMemo(() => {
-    const breadcrumbs = [];
-    let current = currentFolder;
-
-    while (current !== 1) {
-      const folder = folders.find((folder) => folder.id === current);
-      if (folder) {
-        breadcrumbs.unshift(folder);
-        current = folder.parent ?? 1;
-      } else {
-        break;
-      }
-    }
-    return breadcrumbs;
-  }, [currentFolder, folders]);
+  const { files, folders, parents } = props;
 
   const handleUpload = () => {
     alert("Upload functionality would be implemented here");
@@ -62,22 +42,19 @@ export default function DriveContent(props: {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="#" onClick={() => setCurrentFolder(1)}>
-                    My Drive
-                  </BreadcrumbLink>
+                  <BreadcrumbLink href="/f/1">My Drive</BreadcrumbLink>
                 </BreadcrumbItem>
-                {breadcrumbs.length > 0 && <BreadcrumbSeparator />}
-                {breadcrumbs.map((folder, index) => (
+                {parents?.length > 0 && <BreadcrumbSeparator />}
+                {parents?.map((folder, index) => (
                   <Fragment key={folder.id}>
                     <BreadcrumbItem>
-                      <BreadcrumbLink
-                        href="#"
-                        onClick={() => handleFolderClick(folder.id)}
-                      >
+                      <BreadcrumbLink href={`/f/${folder.id}`}>
                         {folder.name}
                       </BreadcrumbLink>
                     </BreadcrumbItem>
-                    {index < breadcrumbs.length - 1 && <BreadcrumbSeparator />}
+                    {index < props.parents.length - 1 && (
+                      <BreadcrumbSeparator />
+                    )}
                   </Fragment>
                 ))}
               </BreadcrumbList>
@@ -100,11 +77,7 @@ export default function DriveContent(props: {
           </TableHeader>
           <TableBody>
             {folders.map((folder) => (
-              <FolderRow
-                key={folder.id}
-                folder={folder}
-                handleFolderClick={() => handleFolderClick(folder.id)}
-              />
+              <FolderRow key={folder.id} folder={folder} />
             ))}
             {files.map((file) => (
               <FileRow key={file.id} file={file} />

@@ -2,7 +2,8 @@
 
 import { Laptop, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { SetStateAction, useEffect, useState } from "react";
+import type { SetStateAction } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,

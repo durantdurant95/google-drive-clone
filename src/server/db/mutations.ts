@@ -7,8 +7,11 @@ export const createFile = async (input: {
     name: string;
     size: number;
     url: string;
+    parent: number;
   };
   userId: string;
 }) => {
-  return db.insert(files_table).values({ ...input.file, parent: 1 });
+  return db
+    .insert(files_table)
+    .values({ ...input.file, parent: input.file.parent });
 };

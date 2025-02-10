@@ -1,7 +1,7 @@
 "use client";
-"use client";
 
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 import { FileRow, FolderRow } from "~/components/file-row";
 import ModeToggle from "~/components/mode-toggle";
@@ -20,18 +20,17 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import type { files_table, folders_table } from "~/server/db/schema";
+import type { DB_FileType, DB_FolderType } from "~/server/db/schema";
+import { UploadButton } from "./uploadthing";
 
 export default function DriveContent(props: {
-  files: (typeof files_table.$inferSelect)[];
-  folders: (typeof folders_table.$inferSelect)[];
-  parents: (typeof folders_table.$inferSelect)[];
+  files: DB_FileType[];
+  folders: DB_FolderType[];
+  parents: DB_FolderType[];
 }) {
   const { files, folders, parents } = props;
 
-  const handleUpload = () => {
-    alert("Upload functionality would be implemented here");
-  };
+  const navigate = useRouter();
 
   return (
     <div className="min-h-screen p-8">
@@ -87,6 +86,11 @@ export default function DriveContent(props: {
             ))}
           </TableBody>
         </Table>
+        <UploadButton
+          endpoint="imageUploader"
+          className="mt-4"
+          onClientUploadComplete={() => navigate.refresh()}
+        />
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
+import "@uploadthing/react/styles.css";
 import { type Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist } from "next/font/google";

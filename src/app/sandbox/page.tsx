@@ -4,9 +4,7 @@ import { mockFolders } from "~/lib/mock-data";
 import { db } from "~/server/db";
 import { folders_table } from "~/server/db/schema";
 
-type Props = {};
-
-export default function SandboxPage({}: Props) {
+export default function SandboxPage() {
   return (
     <div>
       <form

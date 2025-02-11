@@ -41,7 +41,8 @@ export default function DriveContent(props: {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/f/1">My Drive</BreadcrumbLink>
+                  {/* <BreadcrumbLink href="/f/1">My Drive</BreadcrumbLink> */}
+                  My Drive
                 </BreadcrumbItem>
                 {parents?.length > 0 && <BreadcrumbSeparator />}
                 {parents?.map((folder, index) => (

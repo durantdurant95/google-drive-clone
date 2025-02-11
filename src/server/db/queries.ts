@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import "server-only";
 import { db } from "~/server/db";
 import {
@@ -47,4 +47,14 @@ export async function getFolderById(folderId: number) {
     .from(foldersSchema)
     .where(eq(foldersSchema.id, folderId));
   return folder[0];
+}
+
+export async function getRootFolderForUser(userId: string) {
+  const rootFolder = await db
+    .select()
+    .from(foldersSchema)
+    .where(
+      and(eq(foldersSchema.ownerId, userId), isNull(foldersSchema.parent)),
+    );
+  return rootFolder[0];
 }

@@ -1,6 +1,9 @@
-import { FileIcon, FolderIcon } from "lucide-react";
+import { FileIcon, FolderIcon, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner";
+import { deleteFile } from "~/server/db/actions";
 import type { DB_FolderType, files_table } from "~/server/db/schema";
+import { Button } from "./ui/button";
 import { TableCell, TableRow } from "./ui/table";
 
 export function FileRow(props: { file: typeof files_table.$inferSelect }) {
@@ -28,6 +31,24 @@ export function FileRow(props: { file: typeof files_table.$inferSelect }) {
       </TableCell>
       <TableCell>File</TableCell>
       <TableCell className="text-center">{formatFileSize(file.size)}</TableCell>
+      <TableCell className="text-center">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="cursor-pointer"
+          onClick={() =>
+            toast.promise(deleteFile(file.id), {
+              loading: "Deleting file...",
+              success: () => {
+                return "File has been deleted";
+              },
+              error: "Error",
+            })
+          }
+        >
+          <Trash2 size={16} />
+        </Button>
+      </TableCell>
     </TableRow>
   );
 }

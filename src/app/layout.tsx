@@ -3,6 +3,7 @@ import "@uploadthing/react/styles.css";
 import { type Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist } from "next/font/google";
+import { Toaster } from "~/components/ui/sonner";
 import { cn } from "~/lib/utils";
 import "~/styles/globals.css";
 
@@ -33,6 +34,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <Toaster />
             {children}
           </ThemeProvider>
         </body>

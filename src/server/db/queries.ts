@@ -26,14 +26,19 @@ export async function getAllParentsForFolder(folderId: number) {
 }
 
 export function getFiles(folderId: number) {
-  return db.select().from(filesSchema).where(eq(filesSchema.parent, folderId));
+  return db
+    .select()
+    .from(filesSchema)
+    .where(eq(filesSchema.parent, folderId))
+    .orderBy(filesSchema.name);
 }
 
 export function getFolders(parsedFolderId: number) {
   return db
     .select()
     .from(foldersSchema)
-    .where(eq(foldersSchema.parent, parsedFolderId));
+    .where(eq(foldersSchema.parent, parsedFolderId))
+    .orderBy(foldersSchema.name);
 }
 
 export async function getFolderById(folderId: number) {

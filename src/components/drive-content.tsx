@@ -89,7 +89,7 @@ export default function DriveContent(props: {
           </TableBody>
         </Table>
         <UploadButton
-          endpoint="imageUploader"
+          endpoint="driveUploader"
           className="mt-4"
           onClientUploadComplete={() => navigate.refresh()}
           input={{

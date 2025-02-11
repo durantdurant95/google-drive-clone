@@ -5,7 +5,7 @@ import { env } from "~/env";
 export default {
   schema: "./src/server/db/schema.ts",
   dialect: "singlestore",
-  tablesFilter: ["google-drive-clone-*"],
+  // tablesFilter: ["google_drive_clone_*"],
   dbCredentials: {
     host: env.SINGLESTORE_HOST,
     port: parseInt(env.SINGLESTORE_PORT),

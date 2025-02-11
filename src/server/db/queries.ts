@@ -35,3 +35,11 @@ export function getFolders(parsedFolderId: number) {
     .from(foldersSchema)
     .where(eq(foldersSchema.parent, parsedFolderId));
 }
+
+export async function getFolderById(folderId: number) {
+  const folder = await db
+    .select()
+    .from(foldersSchema)
+    .where(eq(foldersSchema.id, folderId));
+  return folder[0];
+}

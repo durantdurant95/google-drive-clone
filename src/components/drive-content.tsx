@@ -27,6 +27,7 @@ export default function DriveContent(props: {
   files: DB_FileType[];
   folders: DB_FolderType[];
   parents: DB_FolderType[];
+  currentFolderId: number;
 }) {
   const { files, folders, parents } = props;
 
@@ -90,6 +91,9 @@ export default function DriveContent(props: {
           endpoint="imageUploader"
           className="mt-4"
           onClientUploadComplete={() => navigate.refresh()}
+          input={{
+            folderId: props.currentFolderId,
+          }}
         />
       </div>
     </div>

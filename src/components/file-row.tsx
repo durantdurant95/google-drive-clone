@@ -5,6 +5,19 @@ import { TableCell, TableRow } from "./ui/table";
 
 export function FileRow(props: { file: typeof files_table.$inferSelect }) {
   const { file } = props;
+
+  const formatFileSize = (size: number) => {
+    const units = ["B", "KB", "MB", "GB", "TB"];
+    let index = 0;
+    let formattedSize = size;
+
+    while (formattedSize >= 1024 && index < units.length - 1) {
+      formattedSize /= 1024;
+      index++;
+    }
+
+    return `${formattedSize.toFixed(2)} ${units[index]}`;
+  };
   return (
     <TableRow key={file.id}>
       <TableCell>
@@ -14,7 +27,7 @@ export function FileRow(props: { file: typeof files_table.$inferSelect }) {
         </Link>
       </TableCell>
       <TableCell>File</TableCell>
-      <TableCell className="text-center">{file.size}</TableCell>
+      <TableCell className="text-center">{formatFileSize(file.size)}</TableCell>
     </TableRow>
   );
 }

@@ -24,7 +24,12 @@ export default async function FolderPage(props: {
 
   return (
     <div className="min-h-screen p-8">
-      <DriveContent files={files} folders={folders} parents={parents} />
+      <DriveContent
+        files={files}
+        folders={folders}
+        parents={parents}
+        currentFolderId={parsedFolderId}
+      />
     </div>
   );
 }

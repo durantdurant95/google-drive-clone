@@ -13,5 +13,5 @@ export const createFile = async (input: {
 }) => {
   return db
     .insert(files_table)
-    .values({ ...input.file, parent: input.file.parent });
+    .values({ ...input.file, ownerId: input.userId });
 };

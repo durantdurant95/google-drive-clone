@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { createRootFolder } from "~/server/db/mutations";
 import { getRootFolderForUser } from "~/server/db/queries";
 
 export default async function DrivePage() {
@@ -9,11 +10,12 @@ export default async function DrivePage() {
     redirect("/sign-in");
   }
 
-  const rootFolder = await getRootFolderForUser(session.userId);
+  let rootFolder = await getRootFolderForUser(session.userId);
 
   if (!rootFolder) {
-    redirect("/drive/create-root-folder");
+    await createRootFolder({ userId: session.userId });
+    rootFolder = await getRootFolderForUser(session.userId);
   }
 
-  return redirect(`/f/${rootFolder.id}`); // Redirect to the root folder
+  redirect(`/f/${rootFolder?.id}`);
 }

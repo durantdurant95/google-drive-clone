@@ -23,6 +23,10 @@ export async function createFolderAction(formData: FormData) {
     revalidatePath(`/f/${folderId}`);
     return { success: true, id: result[0].insertId };
   } catch (error) {
-    return { success: false, error: "Failed to create folder" };
+    console.error("Failed to create folder:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to create folder",
+    };
   }
 }

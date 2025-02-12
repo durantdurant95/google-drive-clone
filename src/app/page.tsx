@@ -48,10 +48,7 @@ export default function LandingPage() {
               <div className="flex flex-col items-center space-y-3 text-center">
                 <Share2 className="text-primary h-12 w-12" />
                 <h2 className="text-xl font-bold">Easy Sharing</h2>
-                <p className="text-sm">
-                  Share files and folders with anyone, even if they don't have
-                  an account.
-                </p>
+                <p className="text-sm">Share files and folders with anyone.</p>
               </div>
               <div className="flex flex-col items-center space-y-3 text-center">
                 <Lock className="text-primary h-12 w-12" />
